@@ -15,12 +15,6 @@ Material de estudo para algorítimos e estruturas de dados.
 - [ ] Recursão e Programação Dinâmica
 - [ ] Ordenação
 
-## Para rodar
+## Dependências
 
 - Python 3.12.3
-
-```bash
-
-cd ${tipo}/${tópico}/${subtópico}/ && python ${arquivo}.py
-
-```
