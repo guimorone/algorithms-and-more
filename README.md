@@ -12,7 +12,7 @@ Material de estudo para algorítimos e estruturas de dados.
 ## Conceitos e Algoritmos
 
 - [ ] Manipulação de Bit
-- [ ] Recursão
+- [ ] Recursão e Programação Dinâmica
 - [ ] Ordenação
 
 ## Para rodar
@@ -21,6 +21,6 @@ Material de estudo para algorítimos e estruturas de dados.
 
 ```bash
 
-cd ${pasta} && python ${arquivo}.py
+cd ${tipo}/${tópico}/${subtópico}/ && python ${arquivo}.py
 
 ```
