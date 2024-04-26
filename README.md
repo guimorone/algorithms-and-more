@@ -14,3 +14,13 @@ Material de estudo para algorítimos e estruturas de dados.
 - [ ] Manipulação de Bit
 - [ ] Recursão
 - [ ] Ordenação
+
+## Para rodar
+
+- Python 3.12.3
+
+```bash
+
+cd ${pasta} && python ${arquivo}.py
+
+```
