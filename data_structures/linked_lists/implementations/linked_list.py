@@ -122,7 +122,7 @@ class LinkedList:
         if self.head is not None:
             current = self.head
             while current:
-                size = size + 1
+                size += 1
                 current = current.next
 
             return size
