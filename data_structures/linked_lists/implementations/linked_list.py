@@ -118,14 +118,14 @@ class LinkedList:
         self.__length = 0
 
     def size(self) -> int:
-        size = 0
+        length = 0
         if self.head is not None:
             current = self.head
             while current:
-                size += 1
+                length += 1
                 current = current.next
 
-            return size
+            return length
         else:
             return 0
 
