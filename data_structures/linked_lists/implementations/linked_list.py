@@ -4,7 +4,7 @@ from typing import Any, Optional
 class Node:
     def __init__(self, data: Any) -> None:
         self.data: Any = data
-        self.next: Node = None
+        self.next: Optional[Node] = None
 
 
 class LinkedList:
@@ -60,6 +60,21 @@ class LinkedList:
         current.next = new_node
         self.__length += 1
 
+    def find(self, data: Any) -> int:
+        if self.is_empty():
+            return -1
+
+        current = self.head
+        index = 0
+        while current.next:
+            if current.data == data:
+                return index
+
+            current = current.next
+            index += 1
+
+        return -1
+
     def update_node(self, data: Any, index: int) -> None:
         if index < 0 or index >= self.__length:
             raise IndexError('Index out of range')
@@ -113,6 +128,22 @@ class LinkedList:
         current.next = current.next.next
         self.__length -= 1
 
+    def remove(self, data: Any) -> None:
+        if self.is_empty():
+            return
+
+        current = self.head
+        if current.data == data:
+            self.head = self.head.next
+            return
+
+        while current.next:
+            if current.next.data == data:
+                current.next = current.next.next
+                return
+
+            current = current.next
+
     def clear(self) -> None:
         self.head = None
         self.__length = 0
@@ -133,12 +164,15 @@ class LinkedList:
         return self.__length
 
     def is_empty(self) -> bool:
-        return self.__length == 0
+        return self.__length == 0 or self.head is None
 
-    def print_list(self, title: Optional[str]) -> None:
+    def print_list(self, title: Optional[str] = None) -> None:
         if title:
             print(title)
         current = self.head
+        if current is None:
+            print('EMPTY', end='')
+            return
         while current:
-            print(current.data)
+            print(current.data, end=' -> ' if current.next else '')
             current = current.next
