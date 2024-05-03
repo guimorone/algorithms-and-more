@@ -21,19 +21,19 @@ class BinarySearchTree:
 
         return self.__root
 
-    def __insert_help(self, root: Node, key: int, data: Any) -> Node:
+    def _insert_help(self, root: Node, key: int, data: Any) -> Node:
         if root is None:
             return Node(key, data)
 
         if root.key > key:
-            root.left = self.__insert_help(root.left, key, data)
+            root.left = self._insert_help(root.left, key, data)
         else:
-            root.right = self.__insert_help(root.right, key, data)
+            root.right = self._insert_help(root.right, key, data)
 
         return root
 
     def insert(self, key: int, data: Any) -> None:
-        self.__root = self.__insert_help(self.__root, key, data)
+        self.__root = self._insert_help(self.__root, key, data)
         self.__count += 1
 
     def __find_help(self, root: Node, key: int) -> Any | None:
@@ -95,16 +95,27 @@ class BinarySearchTree:
 
         return removed_data
 
+    def print_tree(self) -> None:
+        print(f'{self.__count} elements', end='\n\n')
 
-bst = BinarySearchTree()
-for i in range(10):
-    value = randint(10, 40)
-    bst.insert(i, value)
-    print(i, value)
+        current = self.__root
 
-print('-' * 10)
+        def _print_tree_help(root: Node, level: int) -> None:
+            if root is not None:
+                _print_tree_help(root.right, level + 1)
+                print(' ' * 4 * level + '->' if level else '*', root.key, root.data)
+                _print_tree_help(root.left, level + 1)
 
-bst.remove(5)
+        _print_tree_help(current, 0)
 
-for i in range(10):
-    print(i, bst.find(i))
+
+if __name__ == '__main__':
+    bst = BinarySearchTree()
+    for i in range(10):
+        value = randint(10, 40)
+        bst.insert(i, value)
+        print(i, value)
+
+    print('-' * 10, end='\n\n')
+
+    bst.print_tree()
