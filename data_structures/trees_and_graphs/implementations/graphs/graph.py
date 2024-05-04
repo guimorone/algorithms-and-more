@@ -13,7 +13,7 @@ class Graph(ABC):
         self.adjacencies: List[List[Tuple[int, int] | int]] = adjacencies
         self.__adjacency_type: Literal['list', 'matrix'] = adjacency_type
         self.sort_adjacencies_array()
-        self._mark: List[bool] = [False] * len(self.adjacencies)
+        self._visited_list: List[bool] = [False] * len(self.adjacencies)
 
     def sort_adjacencies_array(self) -> None:
         if self.__adjacency_type != 'list':
@@ -112,11 +112,11 @@ class Graph(ABC):
     def graph_traverse(self, *args, **kwargs) -> None:
         # To ensure all nodes are visited (unconnected graphs problem)
         for i in range(len(self.adjacencies)):
-            if self._mark[i] is False:
+            if self._visited_list[i] is False:
                 self._traverse(i, *args, **kwargs)
 
-    def get_marks(self) -> List[bool]:
-        return self._mark
+    def get_visited_lists(self) -> List[bool]:
+        return self._visited_list
 
     @abstractmethod
     def _traverse(self, vertex: int, *args, **kwargs) -> None: ...

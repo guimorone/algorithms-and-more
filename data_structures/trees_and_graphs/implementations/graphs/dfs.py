@@ -9,7 +9,7 @@ from stack import Stack
 class DFS(Graph):
     def __init__(self, *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
-        self.__stack = Stack()
+        self.__stack: Stack = Stack()
 
     def _traverse(self, vertex: int, traverse_type: Literal['dfs', 'toposort'] = 'dfs') -> None:
         if traverse_type == 'dfs':
@@ -21,14 +21,14 @@ class DFS(Graph):
         if vertex >= len(self.adjacencies):
             return
 
-        self._mark[vertex] = True
+        self._visited_list[vertex] = True
         j = self.first(vertex)
         while j != -1 and j < len(self.adjacencies):
             if j == -1:
                 # absence
                 break
 
-            if self._mark[j] is False:
+            if self._visited_list[j] is False:
                 self.do_dfs(j)
 
             j = self.next(vertex, j)
@@ -37,10 +37,10 @@ class DFS(Graph):
         if vertex >= len(self.adjacencies):
             return
 
-        self._mark[vertex] = True
+        self._visited_list[vertex] = True
         j = self.first(vertex)
         while j != -1 and j < len(self.adjacencies):
-            if self._mark[j] is False:
+            if self._visited_list[j] is False:
                 self.toposort(j)
 
             j = self.next(vertex, j)
@@ -56,12 +56,12 @@ if __name__ == '__main__':
     adjacencies_matrix = [[-1, 1, 1], [1, -1, 3], [1, 3, -1]]
     dfs_list = DFS(adjacencies_list, 'list')
     dfs_matrix = DFS(adjacencies_matrix, 'matrix')
-    print(dfs_list.get_marks())
-    print(dfs_matrix.get_marks())
+    print(dfs_list.get_visited_lists())
+    print(dfs_matrix.get_visited_lists())
     dfs_list.graph_traverse()
     dfs_matrix.graph_traverse()
-    print(dfs_list.get_marks())
-    print(dfs_matrix.get_marks())
+    print(dfs_list.get_visited_lists())
+    print(dfs_matrix.get_visited_lists())
 
     toposort_matrix = [
         [-1, 1, 1, -1, -1, -1, -1],

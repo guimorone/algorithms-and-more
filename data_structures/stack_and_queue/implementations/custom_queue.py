@@ -63,13 +63,14 @@ class Queue:
             current = current.next
 
 
-queue = Queue()
-queue.add(1)
-queue.add(2)
-queue.print_queue()
-queue.remove()
-queue.add(3)
-queue.print_queue()
-queue.add(4)
-print(queue.peek())
-queue.print_queue()
+if __name__ == '__main__':
+    queue = Queue()
+    queue.add(1)
+    queue.add(2)
+    queue.print_queue()
+    queue.remove()
+    queue.add(3)
+    queue.print_queue()
+    queue.add(4)
+    print(queue.peek())
+    queue.print_queue()
