@@ -18,7 +18,7 @@ class DFS(Graph):
             self.toposort(vertex)
 
     def do_dfs(self, vertex: int) -> None:
-        if vertex >= len(self.adjacencies):
+        if vertex >= len(self.adjacencies) or vertex == -1:
             return
 
         self._visited_list[vertex] = True
@@ -30,7 +30,7 @@ class DFS(Graph):
             j = self.next(vertex, j)
 
     def toposort(self, vertex: int) -> None:
-        if vertex >= len(self.adjacencies):
+        if vertex >= len(self.adjacencies) or vertex == -1:
             return
 
         self._visited_list[vertex] = True
