@@ -83,12 +83,17 @@ class Graph(ABC):
 
         if self._adjacency_type == 'list':
             index_i, index_j = self.search_in_list(i, j)
-            if index_i == -1 and index_j == -1:
+            if index_i == -1:
                 self.adjacencies[i].append((j, w))
+            else:
+                self.adjacencies[i][index_i] = (j, w)
+
+            if index_j == -1:
                 self.adjacencies[j].append((i, w))
-                self.sort_adjacencies_array()
-            elif index_i == -1 or index_j == -1:
-                raise ValueError('This graph is bidirectional, you must provide both edges.')
+            else:
+                self.adjacencies[j][index_j] = (i, w)
+
+            self.sort_adjacencies_array()
         else:
             self.adjacencies[i][j] = w
             self.adjacencies[j][i] = w
@@ -118,7 +123,7 @@ class Graph(ABC):
 
 
 if __name__ == '__main__':
-    # REMOVE ABC FROM GRAPH BEFORE TESTING
+    # REMOVE 'ABC' FROM GRAPH BEFORE TESTING
     adjacencies_list = [[(2, 1)], [(2, 3)], [(1, 3), (0, 1)]]
     adjacencies_matrix = [[-1, 1, -1], [1, -1, 3], [-1, 3, -1]]
     graph_list = Graph(adjacencies_list, 'list')
