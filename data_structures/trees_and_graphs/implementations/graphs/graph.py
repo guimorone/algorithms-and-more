@@ -10,18 +10,18 @@ class Graph:
         # Tuple -> Vertex and Weight
         # Weight must be greater than 0
         self.adjacencies: List[List[Tuple[int, int] | int]] = adjacencies
-        self.__adjacency_type: Literal['list', 'matrix'] = adjacency_type
+        self._adjacency_type: Literal['list', 'matrix'] = adjacency_type
         self.sort_adjacencies_array()
-        self.__mark: List[bool] = [False] * len(self.adjacencies)
+        self._mark: List[bool] = [False] * len(self.adjacencies)
 
     def sort_adjacencies_array(self) -> None:
-        if self.__adjacency_type != 'list':
+        if self._adjacency_type != 'list':
             return
 
         self.adjacencies: List[List[Tuple[int, int]]] = [sorted(l, key=lambda t: t[0]) for l in self.adjacencies]
 
     def search_in_list(self, i: int, j: int) -> Tuple[int, int]:
-        if self.__adjacency_type != 'list':
+        if self._adjacency_type != 'list':
             raise ValueError('This method is only for adjacency list graphs.')
 
         index_i = -1
@@ -43,7 +43,7 @@ class Graph:
         if vertex >= len(self.adjacencies):
             return -1
 
-        if self.__adjacency_type == 'list':
+        if self._adjacency_type == 'list':
             if not self.adjacencies[vertex] or not len(self.adjacencies[vertex]):
                 return -1
 
@@ -62,7 +62,7 @@ class Graph:
         if vertex >= len(self.adjacencies) or reference_vertex >= len(self.adjacencies):
             return -1
 
-        if self.__adjacency_type == 'list':
+        if self._adjacency_type == 'list':
             for v, _ in self.adjacencies[vertex]:
                 if v <= reference_vertex:
                     continue
@@ -80,7 +80,7 @@ class Graph:
         if w <= 0:
             raise ValueError('Weight must be greater than 0')
 
-        if self.__adjacency_type == 'list':
+        if self._adjacency_type == 'list':
             index_i, index_j = self.search_in_list(i, j)
             if index_i == -1 and index_j == -1:
                 self.adjacencies[i].append((j, w))
@@ -93,7 +93,7 @@ class Graph:
             self.adjacencies[j][i] = w
 
     def del_edge(self, i: int, j: int) -> None:
-        if self.__adjacency_type == 'list':
+        if self._adjacency_type == 'list':
             index_i, index_j = self.search_in_list(i, j)
             if index_i != -1:
                 del self.adjacencies[i][index_i]
@@ -102,6 +102,9 @@ class Graph:
         else:
             self.adjacencies[i][j] = -1
             self.adjacencies[j][i] = -1
+
+    def get_marks(self) -> List[bool]:
+        return self._mark
 
 
 if __name__ == '__main__':

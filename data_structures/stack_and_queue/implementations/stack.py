@@ -55,13 +55,14 @@ class Stack:
             current = current.next
 
 
-stack = Stack()
-stack.push(1)
-stack.push(2)
-stack.print_stack()
-stack.pop()
-stack.push(3)
-stack.print_stack()
-stack.push(4)
-print(stack.peek())
-stack.print_stack()
+if __name__ == '__main__':
+    stack = Stack()
+    stack.push(1)
+    stack.push(2)
+    stack.print_stack()
+    stack.pop()
+    stack.push(3)
+    stack.print_stack()
+    stack.push(4)
+    print(stack.peek())
+    stack.print_stack()
