@@ -14,7 +14,7 @@ class DFS(Graph):
     def _traverse(self, vertex: int, traverse_type: Literal['dfs', 'toposort'] = 'dfs') -> None:
         if traverse_type == 'dfs':
             self.do_dfs(vertex)
-        else:
+        elif traverse_type == 'toposort':
             self.toposort(vertex)
 
     def do_dfs(self, vertex: int) -> None:
@@ -23,7 +23,7 @@ class DFS(Graph):
 
         self._mark[vertex] = True
         j = self.first(vertex)
-        while j < len(self.adjacencies):
+        while j != -1 and j < len(self.adjacencies):
             if j == -1:
                 # absence
                 break
@@ -39,11 +39,7 @@ class DFS(Graph):
 
         self._mark[vertex] = True
         j = self.first(vertex)
-        while j < len(self.adjacencies):
-            if j == -1:
-                # absence
-                break
-
+        while j != -1 and j < len(self.adjacencies):
             if self._mark[j] is False:
                 self.toposort(j)
 
@@ -68,14 +64,13 @@ if __name__ == '__main__':
     print(dfs_matrix.get_marks())
 
     toposort_matrix = [
-        [-1, -1, -1, -1, -1, -1, -1, -1],
-        [-1, -1, 1, 1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, 1, 1, 1, -1],
-        [-1, -1, -1, -1, 1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, 1, -1, -1],
-        [-1, -1, -1, -1, -1, -1, -1, 1],
-        [-1, -1, -1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1, -1, -1],
+        [-1, 1, 1, -1, -1, -1, -1],
+        [-1, -1, -1, 1, 1, 1, -1],
+        [-1, -1, -1, 1, -1, -1, -1],
+        [-1, -1, -1, -1, 1, -1, -1],
+        [-1, -1, -1, -1, -1, -1, 1],
+        [-1, -1, -1, -1, -1, -1, -1],
+        [-1, -1, -1, -1, -1, -1, -1],
     ]
 
     t = DFS(toposort_matrix, 'matrix')
