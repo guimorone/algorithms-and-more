@@ -23,11 +23,7 @@ class DFS(Graph):
 
         self._visited_list[vertex] = True
         j = self.first(vertex)
-        while j != -1 and j < len(self.adjacencies):
-            if j == -1:
-                # absence
-                break
-
+        while j != -1:
             if self._visited_list[j] is False:
                 self.do_dfs(j)
 
@@ -39,7 +35,7 @@ class DFS(Graph):
 
         self._visited_list[vertex] = True
         j = self.first(vertex)
-        while j != -1 and j < len(self.adjacencies):
+        while j != -1:
             if self._visited_list[j] is False:
                 self.toposort(j)
 

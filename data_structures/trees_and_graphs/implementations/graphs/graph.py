@@ -1,8 +1,7 @@
-from abc import ABC, abstractmethod
 from typing import List, Tuple, Literal
 
 
-class Graph(ABC):
+class Graph:
     def __init__(
         self,
         adjacencies: List[List[Tuple[int, int] | int]],
@@ -118,7 +117,6 @@ class Graph(ABC):
     def get_visited_lists(self) -> List[bool]:
         return self._visited_list
 
-    @abstractmethod
     def _traverse(self, vertex: int, *args, **kwargs) -> None: ...
 
 

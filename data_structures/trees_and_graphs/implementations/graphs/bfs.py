@@ -6,9 +6,6 @@ from custom_queue import Queue
 
 
 class BFS(Graph):
-    def __init__(self, *args, **kwargs) -> None:
-        super().__init__(*args, **kwargs)
-
     def _traverse(self, start_vertex: int) -> None:
         if start_vertex >= len(self.adjacencies):
             return
@@ -19,13 +16,13 @@ class BFS(Graph):
         self._visited_list[start_vertex] = True
         while not queue.is_empty():
             vertex = queue.remove()
-            j = self.first(vertex)
-            while j != -1:
-                if self._visited_list[j] is False:
-                    self._visited_list[j] = True
-                    queue.add(j)
+            next_vertex = self.first(vertex)
+            while next_vertex != -1:
+                if self._visited_list[next_vertex] is False:
+                    self._visited_list[next_vertex] = True
+                    queue.add(next_vertex)
 
-                j = self.next(vertex, j)
+                next_vertex = self.next(vertex, next_vertex)
 
 
 if __name__ == '__main__':
