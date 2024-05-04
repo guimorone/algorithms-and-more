@@ -1,7 +1,8 @@
+from abc import ABC, abstractmethod
 from typing import List, Tuple, Literal
 
 
-class Graph:
+class Graph(ABC):
     def __init__(
         self,
         adjacencies: List[List[Tuple[int, int] | int]],
@@ -103,11 +104,21 @@ class Graph:
             self.adjacencies[i][j] = -1
             self.adjacencies[j][i] = -1
 
+    def graph_traverse(self, *args, **kwargs) -> None:
+        # To ensure all nodes are visited (unconnected graphs problem)
+        for i in range(len(self.adjacencies)):
+            if self._mark[i] is False:
+                self._traverse(i, *args, **kwargs)
+
     def get_marks(self) -> List[bool]:
         return self._mark
 
+    @abstractmethod
+    def _traverse(self, vertex: int, *args, **kwargs) -> None: ...
+
 
 if __name__ == '__main__':
+    # REMOVE ABC FROM GRAPH BEFORE TESTING
     adjacencies_list = [[(2, 1)], [(2, 3)], [(1, 3), (0, 1)]]
     adjacencies_matrix = [[-1, 1, -1], [1, -1, 3], [-1, 3, -1]]
     graph_list = Graph(adjacencies_list, 'list')

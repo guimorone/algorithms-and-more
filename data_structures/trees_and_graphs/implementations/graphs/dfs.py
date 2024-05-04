@@ -11,13 +11,11 @@ class DFS(Graph):
         super().__init__(*args, **kwargs)
         self.__stack = Stack()
 
-    def graph_traverse(self, traverse_type: Literal['dfs', 'toposort'] = 'dfs') -> None:
-        for i in range(len(self.adjacencies)):
-            if self._mark[i] is False:
-                if traverse_type == 'dfs':
-                    self.do_dfs(i)
-                else:
-                    self.toposort(i)
+    def _traverse(self, vertex: int, traverse_type: Literal['dfs', 'toposort'] = 'dfs') -> None:
+        if traverse_type == 'dfs':
+            self.do_dfs(vertex)
+        else:
+            self.toposort(vertex)
 
     def do_dfs(self, vertex: int) -> None:
         if vertex >= len(self.adjacencies):
