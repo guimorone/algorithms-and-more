@@ -1,30 +1,33 @@
 import math
 
-# import sys, os
+import sys, os
 from typing import List
 from graph import Graph
 
-# minha heap tem alguma implementação errada
-# sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'trees'))
-# from heap import Heap
-import heapq
+sys.path.append(os.path.join(os.path.dirname(__file__), '..', 'trees'))
+from heap import Heap
+# import heapq
 
 
 def dijkstra(graph: Graph, source_vertex: int) -> List[int]:
     size = len(graph.adjacencies)
+    graph.visited_list = [False for _ in range(size)]
     distances = [math.inf for _ in range(size)]
     h = [(source_vertex, source_vertex, 0)]
-    # heap = Heap('min', 'top-down', h)
-    heapq.heapify(h)
+    heap = Heap('min', 'top-down', h)
+    heap.heapify()
+    # heapq.heapify(h)
     distances[source_vertex] = 0
     for _ in range(size):
         try:
-            peek = heapq.heappop(h)
+            # peek = heapq.heappop(h)
+            peek = heap.pop()
             if peek is None:
                 return distances
             _, v, _ = peek
             while graph.visited_list[v] is True:
-                peek = heapq.heappop(h)
+                # peek = heapq.heappop(h)
+                peek = heap.pop()
                 if peek is None:
                     return distances
                 _, v, _ = peek
@@ -36,7 +39,8 @@ def dijkstra(graph: Graph, source_vertex: int) -> List[int]:
         while w != -1:
             if graph.visited_list[w] is False and distances[w] > distances[v] + graph.get_weight(v, w):
                 distances[w] = distances[v] + graph.get_weight(v, w)
-                heapq.heappush(h, (v, w, distances[w]))
+                # heapq.heappush(h, (v, w, distances[w]))
+                heap.push((v, w, distances[w]))
 
             w = graph.next(v, w)
 
@@ -52,4 +56,5 @@ if __name__ == '__main__':
         [math.inf, math.inf, math.inf, math.inf, math.inf],
     ]
     graph = Graph(adjacencies, 'matrix')
-    print(dijkstra(graph, 0))
+    for i in range(5):
+        print(dijkstra(graph, i))

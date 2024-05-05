@@ -64,7 +64,7 @@ class Graph:
             return self.adjacencies[vertex][0][0]
 
         for i in range(len(self.adjacencies[vertex])):
-            if self.adjacencies[vertex][i] > 0 and self.adjacencies[vertex][i] != math.inf:
+            if self.get_weight(vertex, i) > 0 and self.get_weight(vertex, i) != math.inf:
                 return i
 
         return -1
@@ -85,7 +85,7 @@ class Graph:
 
         elif self.__adjacency_type == 'matrix':
             for i in range(reference_vertex + 1, len(self.adjacencies[vertex])):
-                if self.adjacencies[vertex][i] > 0 and self.adjacencies[vertex][i] != math.inf:
+                if self.get_weight(vertex, i) > 0 and self.get_weight(vertex, i) != math.inf:
                     return i
 
         return -1

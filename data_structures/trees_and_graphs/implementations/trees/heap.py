@@ -1,4 +1,3 @@
-import math
 from typing import List, Literal, Any
 
 
@@ -12,28 +11,25 @@ class Heap:
         self.nodes: List[Any] = nodes
         self.heap_type: Literal['min', 'max'] = heap_type
         self.heap_method: Literal['bottom-up', 'top-down'] = heap_method
-        self.__heap: List[Any] = [math.inf if self.heap_type == 'max' else -1]
+        self.__heap: List[Any] = [None]
         self.__size: int = 0
 
     def position_heapify(self, pos: int) -> None:
         value = self.__heap[pos]
         heap = False
+        if value is None:
+            return
+
         while not heap and 2 * pos <= self.__size:
             j = 2 * pos
-            if j < self.__size:
-                if (
-                    self.heap_type == 'max'
-                    and self.__heap[j] < self.__heap[j + 1]
-                    or self.heap_type == 'min'
-                    and self.__heap[j] > self.__heap[j + 1]
-                ):
-                    j += 1
+            if j < self.__size and (
+                (self.heap_type == 'max' and self.__heap[j] < self.__heap[j + 1])
+                or (self.heap_type == 'min' and self.__heap[j] > self.__heap[j + 1])
+            ):
+                j += 1
 
-            if (
-                self.heap_type == 'max'
-                and value >= self.__heap[j]
-                or self.heap_type == 'min'
-                and value <= self.__heap[j]
+            if (self.heap_type == 'max' and value >= self.__heap[j]) or (
+                self.heap_type == 'min' and value <= self.__heap[j]
             ):
                 heap = True
             else:
@@ -59,10 +55,9 @@ class Heap:
             parent = current // 2
 
     def pop(self) -> Any:
-        popped = self.__heap[1]
-        self.__heap[1] = self.__heap[self.__size]
+        popped = self.__heap.pop(1)
         self.__size -= 1
-        self.position_heapify(1)
+        self.__bottom_up()
 
         return popped
 
@@ -76,11 +71,11 @@ class Heap:
 
     def heapify(self) -> None:
         if self.heap_method == 'bottom-up':
-            self.__heap: List[Any] = [-1] + self.nodes
+            self.__heap: List[Any] = [None] + self.nodes
             self.__size: int = len(self.nodes)
             self.__bottom_up()
         elif self.heap_method == 'top-down':
-            self.__heap: List[Any] = [math.inf if self.heap_type == 'max' else -1]
+            self.__heap: List[Any] = [None]
             self.__size: int = 0
             self.__top_down()
         else:
@@ -91,6 +86,9 @@ class Heap:
 
     def get_peek_value(self) -> Any:
         return self.__heap[1]
+
+    def is_empty(self) -> bool:
+        return self.__size == 0 or self.get_peek_value() is None
 
 
 if __name__ == '__main__':
