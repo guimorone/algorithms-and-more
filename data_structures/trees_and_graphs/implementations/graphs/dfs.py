@@ -1,6 +1,8 @@
+import math
+import sys, os
 from typing import Literal
 from graph import Graph
-import sys, os
+
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..', 'stack_and_queue', 'implementations'))
 from stack import Stack
@@ -21,10 +23,10 @@ class DFS(Graph):
         if vertex >= len(self.adjacencies) or vertex == -1:
             return
 
-        self._visited_list[vertex] = True
+        self.visited_list[vertex] = True
         j = self.first(vertex)
         while j != -1:
-            if self._visited_list[j] is False:
+            if self.visited_list[j] is False:
                 self.do_dfs(j)
 
             j = self.next(vertex, j)
@@ -33,10 +35,10 @@ class DFS(Graph):
         if vertex >= len(self.adjacencies) or vertex == -1:
             return
 
-        self._visited_list[vertex] = True
+        self.visited_list[vertex] = True
         j = self.first(vertex)
         while j != -1:
-            if self._visited_list[j] is False:
+            if self.visited_list[j] is False:
                 self.toposort(j)
 
             j = self.next(vertex, j)
@@ -49,7 +51,7 @@ class DFS(Graph):
 
 if __name__ == '__main__':
     adjacencies_list = [[(2, 1)], [(2, 3)], [(1, 3), (0, 1)]]
-    adjacencies_matrix = [[-1, 1, 1], [1, -1, 3], [1, 3, -1]]
+    adjacencies_matrix = [[math.inf, 1, 1], [1, math.inf, 3], [1, 3, math.inf]]
     dfs_list = DFS(adjacencies_list, 'list')
     dfs_matrix = DFS(adjacencies_matrix, 'matrix')
     print(dfs_list.get_visited_lists())
@@ -60,13 +62,13 @@ if __name__ == '__main__':
     print(dfs_matrix.get_visited_lists())
 
     toposort_matrix = [
-        [-1, 1, 1, -1, -1, -1, -1],
-        [-1, -1, -1, 1, 1, 1, -1],
-        [-1, -1, -1, 1, -1, -1, -1],
-        [-1, -1, -1, -1, 1, -1, -1],
-        [-1, -1, -1, -1, -1, -1, 1],
-        [-1, -1, -1, -1, -1, -1, -1],
-        [-1, -1, -1, -1, -1, -1, -1],
+        [math.inf, 1, 1, math.inf, math.inf, math.inf, math.inf],
+        [math.inf, math.inf, math.inf, 1, 1, 1, math.inf],
+        [math.inf, math.inf, math.inf, 1, math.inf, math.inf, math.inf],
+        [math.inf, math.inf, math.inf, math.inf, 1, math.inf, math.inf],
+        [math.inf, math.inf, math.inf, math.inf, math.inf, math.inf, 1],
+        [math.inf, math.inf, math.inf, math.inf, math.inf, math.inf, math.inf],
+        [math.inf, math.inf, math.inf, math.inf, math.inf, math.inf, math.inf],
     ]
 
     t = DFS(toposort_matrix, 'matrix')

@@ -1,3 +1,4 @@
+import math
 from typing import List, Tuple, Literal
 
 
@@ -12,7 +13,20 @@ class Graph:
         self.adjacencies: List[List[Tuple[int, int] | int]] = adjacencies
         self.__adjacency_type: Literal['list', 'matrix'] = adjacency_type
         self.sort_adjacencies_array()
-        self._visited_list: List[bool] = [False] * len(self.adjacencies)
+        self.visited_list: List[bool] = [False] * len(self.adjacencies)
+
+    def get_weight(self, i: int, j: int) -> int:
+        try:
+            if self.__adjacency_type == 'list':
+                for n in range(len(self.adjacencies[i])):
+                    if self.adjacencies[i][n][0] == j:
+                        return self.adjacencies[i][n][1]
+            elif self.__adjacency_type == 'matrix':
+                return self.adjacencies[i][j]
+        except:
+            pass
+
+        return math.inf
 
     def sort_adjacencies_array(self) -> None:
         if self.__adjacency_type != 'list':
@@ -50,7 +64,7 @@ class Graph:
             return self.adjacencies[vertex][0][0]
 
         for i in range(len(self.adjacencies[vertex])):
-            if self.adjacencies[vertex][i] > 0:
+            if self.adjacencies[vertex][i] > 0 and self.adjacencies[vertex][i] != math.inf:
                 return i
 
         return -1
@@ -71,51 +85,52 @@ class Graph:
 
         elif self.__adjacency_type == 'matrix':
             for i in range(reference_vertex + 1, len(self.adjacencies[vertex])):
-                if self.adjacencies[vertex][i] > 0:
+                if self.adjacencies[vertex][i] > 0 and self.adjacencies[vertex][i] != math.inf:
                     return i
 
         return -1
 
     def set_edge(self, i: int, j: int, w: int = 1) -> None:
+        # considering unidirectional
         if w <= 0:
             raise ValueError('Weight must be greater than 0')
 
         if self.__adjacency_type == 'list':
-            index_i, index_j = self.search(i, j)
+            index_i, _ = self.search(i, j)
             if index_i == -1:
                 self.adjacencies[i].append((j, w))
             else:
                 self.adjacencies[i][index_i] = (j, w)
 
-            if index_j == -1:
-                self.adjacencies[j].append((i, w))
-            else:
-                self.adjacencies[j][index_j] = (i, w)
+            # if index_j == -1:
+            #     self.adjacencies[j].append((i, w))
+            # else:
+            #     self.adjacencies[j][index_j] = (i, w)
 
             self.sort_adjacencies_array()
         elif self.__adjacency_type == 'matrix':
             self.adjacencies[i][j] = w
-            self.adjacencies[j][i] = w
+            # self.adjacencies[j][i] = w
 
     def del_edge(self, i: int, j: int) -> None:
         if self.__adjacency_type == 'list':
             index_i, index_j = self.search(i, j)
             if index_i != -1:
                 del self.adjacencies[i][index_i]
-            if index_j != -1:
-                del self.adjacencies[j][index_j]
+            # if index_j != -1:
+            #     del self.adjacencies[j][index_j]
         elif self.__adjacency_type == 'matrix':
-            self.adjacencies[i][j] = -1
-            self.adjacencies[j][i] = -1
+            self.adjacencies[i][j] = math.inf
+            # self.adjacencies[j][i] = math.inf
 
     def graph_traverse(self, *args, **kwargs) -> None:
         # To ensure all nodes are visited (unconnected graphs problem)
         for i in range(len(self.adjacencies)):
-            if self._visited_list[i] is False:
+            if self.visited_list[i] is False:
                 self._traverse(i, *args, **kwargs)
 
     def get_visited_lists(self) -> List[bool]:
-        return self._visited_list
+        return self.visited_list
 
     def _traverse(self, vertex: int, *args, **kwargs) -> None: ...
 
@@ -123,7 +138,7 @@ class Graph:
 if __name__ == '__main__':
     # REMOVE 'ABC' FROM GRAPH BEFORE TESTING
     adjacencies_list = [[(2, 1)], [(2, 3)], [(1, 3), (0, 1)]]
-    adjacencies_matrix = [[-1, 1, -1], [1, -1, 3], [-1, 3, -1]]
+    adjacencies_matrix = [[math.inf, 1, math.inf], [1, math.inf, 3], [math.inf, 3, math.inf]]
     graph_list = Graph(adjacencies_list, 'list')
     print(graph_list.adjacencies)
     graph_list.set_edge(0, 1, 4)

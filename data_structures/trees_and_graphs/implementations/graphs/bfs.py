@@ -1,5 +1,7 @@
-from graph import Graph
+import math
 import sys, os
+from graph import Graph
+
 
 sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', '..', 'stack_and_queue', 'implementations'))
 from custom_queue import Queue
@@ -16,13 +18,13 @@ class BFS(Graph):
         queue = Queue()
 
         queue.add(start_vertex)
-        self._visited_list[start_vertex] = True
+        self.visited_list[start_vertex] = True
         while not queue.is_empty():
             vertex = queue.remove()
             next_vertex = self.first(vertex)
             while next_vertex != -1:
-                if self._visited_list[next_vertex] is False:
-                    self._visited_list[next_vertex] = True
+                if self.visited_list[next_vertex] is False:
+                    self.visited_list[next_vertex] = True
                     queue.add(next_vertex)
                     if destiny_vertex != -1:
                         predecessors.append(next_vertex)
@@ -40,7 +42,7 @@ class BFS(Graph):
 
 if __name__ == '__main__':
     adjacencies_list = [[(2, 1)], [(2, 3)], [(1, 3), (0, 1)]]
-    adjacencies_matrix = [[-1, 1, 1], [1, -1, 3], [1, 3, -1]]
+    adjacencies_matrix = [[math.inf, 1, 1], [1, math.inf, 3], [1, 3, math.inf]]
     bfs_list = BFS(adjacencies_list, 'list')
     bfs_matrix = BFS(adjacencies_matrix, 'matrix')
     print(bfs_list.get_visited_lists())
