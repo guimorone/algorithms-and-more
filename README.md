@@ -4,10 +4,10 @@ Material de estudo para algorítimos e estruturas de dados.
 
 ## Estruturas de Dados
 
-- [ ] Arrays e Strings
-- [ ] Linked Lists
-- [ ] Pilhas e Filas
-- [ ] Árvores e Grafos
+- [x] Arrays e Strings
+- [x] Linked Lists
+- [x] Pilhas e Filas
+- [x] Árvores e Grafos
 
 ## Conceitos e Algoritmos
 
