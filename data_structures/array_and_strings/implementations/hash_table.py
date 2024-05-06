@@ -23,6 +23,12 @@ class HashTable:
         index = self.__addresses[hash_key].find(key)
 
         return index != -1
+    
+    def count(self, key: object) -> int:
+        hash_key = self.hash_function(key)
+        count = self.__addresses[hash_key].count(key)
+
+        return count
 
     def delete(self, key: object) -> None:
         hash_key = self.hash_function(key)

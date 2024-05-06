@@ -66,9 +66,7 @@ class LinkedList:
 
         current = self.head
         index = 0
-        if current.data == data:
-            return index
-        while current.next:
+        while current:
             if current.data == data:
                 return index
 
@@ -76,6 +74,20 @@ class LinkedList:
             index += 1
 
         return -1
+    
+    def count(self, data: Any) -> int:
+        if self.is_empty():
+            return -1
+
+        current = self.head
+        count = 0
+        while current:
+            if current.data == data:
+                count += 1
+
+            current = current.next
+
+        return count
 
     def update_node(self, data: Any, index: int) -> None:
         if index < 0 or index >= self.__length:
