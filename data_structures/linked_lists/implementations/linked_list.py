@@ -66,6 +66,8 @@ class LinkedList:
 
         current = self.head
         index = 0
+        if current.data == data:
+            return index
         while current.next:
             if current.data == data:
                 return index

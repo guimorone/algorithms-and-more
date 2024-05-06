@@ -12,7 +12,7 @@ class HashTable:
         self.__addresses: List[LinkedList] = [LinkedList() for _ in range(length)]
 
     def hash_function(self, key: object) -> int:
-        return len(key) % self.__length
+        return ord(key) % self.__length
 
     def insert(self, key: object) -> None:
         hash_key = self.hash_function(key)
@@ -35,13 +35,14 @@ class HashTable:
             print()
 
 
-hash_table = HashTable()
-hash_table.insert('aaaa')
-hash_table.insert('bbbb')
-hash_table.insert('ccc')
-print(hash_table.search('aaaa'))
-hash_table.print_hash_table()
-hash_table.delete('bbbb')
-print(hash_table.search('bbbb'))
-hash_table.insert('ddd')
-hash_table.print_hash_table()
+if __name__ == '__main__':
+    hash_table = HashTable()
+    hash_table.insert('aaaa')
+    hash_table.insert('bbbb')
+    hash_table.insert('ccc')
+    print(hash_table.search('aaaa'))
+    hash_table.print_hash_table()
+    hash_table.delete('bbbb')
+    print(hash_table.search('bbbb'))
+    hash_table.insert('ddd')
+    hash_table.print_hash_table()

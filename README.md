@@ -2,6 +2,8 @@
 
 Material de estudo para algorítimos e estruturas de dados.
 
+As questões foram baseadas no livro "Cracking the Coding Interview".
+
 ## Estruturas de Dados
 
 - [ ] Arrays e Strings
