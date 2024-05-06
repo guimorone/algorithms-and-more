@@ -39,7 +39,7 @@ def solution_2(string: str) -> bool:
 
 
 if __name__ == '__main__':
-    string = input().strip().lower().replace(' ', '')
+    string = input().replace(' ', '').lower()
     response_1 = solution_1(string)
     print(response_1)
     response_2 = solution_2(string)
