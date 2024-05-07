@@ -74,7 +74,7 @@ class LinkedList:
             index += 1
 
         return -1
-    
+
     def count(self, data: Any) -> int:
         if self.is_empty():
             return -1
@@ -135,9 +135,9 @@ class LinkedList:
 
         current = self.head
         for _ in range(index - 1):
+            current = current.next
             if current is None:
                 raise IndexError('Index out of range')
-            current = current.next
 
         current.next = current.next.next
         self.__length -= 1
@@ -188,5 +188,5 @@ class LinkedList:
             print('EMPTY', end='')
             return
         while current:
-            print(current.data, end=' -> ' if current.next else '')
+            print(current.data, end=' -> ' if current.next else '\n')
             current = current.next
