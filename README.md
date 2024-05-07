@@ -6,9 +6,9 @@ As questões foram baseadas no livro "Cracking the Coding Interview".
 
 ## Estruturas de Dados
 
-- [ ] Arrays e Strings
+- [x] Arrays e Strings
   - [x] Implementações
-  - [ ] Questões
+  - [x] Questões
 - [ ] Linked Lists
   - [x] Implementações
   - [ ] Questões
