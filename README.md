@@ -9,9 +9,9 @@ As questões foram baseadas no livro "Cracking the Coding Interview".
 - [x] Arrays e Strings
   - [x] Implementações
   - [x] Questões
-- [ ] Linked Lists
+- [x] Linked Lists
   - [x] Implementações
-  - [ ] Questões
+  - [x] Questões
 - [ ] Pilhas e Filas
   - [x] Implementações
   - [ ] Questões
